@@ -1,0 +1,55 @@
+
+<head></head>
+
+<body>
+<div class="name">
+<h1 class="title"><%= @bodies["title"] %></h1>
+</div>
+<div>
+<br><br>
+</div>
+
+<div class="wait_ords">
+<a class = "orders_name">Заказы, ожидающие отгрузки:</a>
+
+<ul>
+  <% @orders.each do |order| %>
+    <%uri = URI("http://#{@data["orders"]}/admin/orders/#{order["id"]}.json")
+      http = Net::HTTP.start(uri.host, uri.port)
+      request = Net::HTTP::Get.new(uri)
+      request.basic_auth(@data["id"], @data["name"])
+      response = http.request(request)
+      @ord = JSON.parse(response.body)%>
+    
+      <li><a class="li_orders" href="<%=client_path(@ord["id"])%>"><%= "Заказ №" + (@ord["number"]).to_s%></a>
+      </li>
+    <p><%= @ord["id"]%></p>
+    <%= link_to "Отгрузить", delivered_client_path("#{@ord["id"]}")%>
+  <%end%>
+</ul>
+</div>
+
+<div class="wait_paid">
+    <a class = "orders_name">Заказы, ожидающие оплаты:</a>
+
+<ul>
+  <% @orders_nopay.each do |order| %>
+    <%uri = URI("http://#{@data["orders"]}/admin/orders/#{order["id"]}.json")
+      http = Net::HTTP.start(uri.host, uri.port)
+      request = Net::HTTP::Get.new(uri)
+      request.basic_auth(@data["id"], @data["name"])
+      response = http.request(request)
+      @ord = JSON.parse(response.body)%>
+    
+      <li><a class="li_orders" href=""><%= "Заказ №" + (@ord["number"]).to_s%></a>
+      </li>
+    <p><%= @ord["id"]%></p>
+    <%= link_to "Оплатить", paid_client_path("#{@ord["id"]}")%>
+  <%end%>
+</ul>
+</div>
+
+
+
+
+</body>

@@ -1,0 +1,23 @@
+<h1>Мои клиенты</h1>
+
+<%= form_with model: @client, url: '/client/ekam' do |form| %>
+  <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+    <% @client.errors.full_messages_for(:name).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :phone_number %><br>
+    <%= form.text_field :phone_number %>
+    <% @client.errors.full_messages_for(:phone_number).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit value="Добавить"%>
+  </div>
+<% end %>

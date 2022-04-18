@@ -1,0 +1,24 @@
+<div class="login_pass">
+<h1>Мои клиенты</h1>
+
+<%= form_for @client, url: client_login_path, method: :get do |form| %>
+  <div>
+    <%= form.label value="ID" %><br>
+    <%= form.text_field :id %>
+  </div>
+
+  <div>
+    <%= form.label value="Password" %><br>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label value="Name shop" %><br>
+    <%= form.text_field :orders %>
+  </div>
+
+  <div>
+    <%= form.submit value="Клиенты"%>
+  </div>
+<% end %>
+</div>
